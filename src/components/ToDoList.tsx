@@ -1,7 +1,12 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import CreateToDo from "./CreateToDo";
-import { categoryState, toDoSelector } from "./recoil/atom/toDoAtom";
-import ToDo from "./ToDo";
+// import { useRecoilState, useRecoilValue } from "recoil";
+// import CreateToDo from "./CreateToDo";
+// import {
+//   Categories,
+//   categoryState,
+//   toDoSelector,
+// } from "./recoil/atom/toDoAtom";
+// import ToDo from "./ToDo";
+// import CreateCategory from "./CreateCategory";
 
 // export const ToDoList = () => {
 //   const [todo, setTodo] = useState("");
@@ -146,26 +151,51 @@ import ToDo from "./ToDo";
 //   );
 // }
 
-export default function ToDoList() {
-  const toDos = useRecoilValue(toDoSelector);
-  const [category, setCategory] = useRecoilState(categoryState);
-  const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-    setCategory(event.currentTarget.value);
-  };
+import styled from "styled-components";
+import ToDoItem from "./ToDoItem";
 
+const ToDoListContainer = styled.div`
+  flex: 1;
+  padding: 20px 32px;
+  padding-bottom: 28px;
+  overflow-y: auto;
+`;
+
+const ToDoList = () => {
   return (
-    <div>
-      <h1>Create a To Do</h1>
-      <hr />
-      <select value={category} onInput={onInput}>
-        <option value="TO_DO">TO DO</option>
-        <option value="DOING">DOING</option>
-        <option value="DONE">DONE</option>
-      </select>
-      <CreateToDo />
-      {toDos?.map((toDo) => (
-        <ToDo key={toDo.id} {...toDo} />
-      ))}
-    </div>
+    <ToDoListContainer>
+      <ToDoItem done={true} text="Have dinner" />
+      <ToDoItem done={false} text="Study" />
+      <ToDoItem done={false} text="Work out" />
+      <ToDoItem done={true} text="Playing soccer" />
+    </ToDoListContainer>
   );
-}
+};
+
+export default ToDoList;
+
+// export default function ToDoList() {
+//   const toDos = useRecoilValue(toDoSelector);
+//   const [category, setCategory] = useRecoilState(categoryState);
+//   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
+//     setCategory(event.currentTarget.value as any);
+//   };
+
+//   return (
+//     <div>
+//       <h1>Create a To Do</h1>
+//       <hr />
+//       <select value={category} onInput={onInput}>
+//         <option value={Categories.TO_DO}>TO DO</option>
+//         <option value={Categories.DOING}>DOING</option>
+//         <option value={Categories.DONE}>DONE</option>
+//       </select>
+//       {/* <CreateCategory /> */}
+//       <CreateToDo />
+//       {toDos?.map((toDo) => (
+//         <ToDo key={toDo.id} {...toDo} />
+//       ))}
+//       <button>Create Category</button>
+//     </div>
+//   );
+// }
